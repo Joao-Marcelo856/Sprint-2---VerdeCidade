@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <section id="tela-login">
+        <h2>VerdeCidade</h2>
+        <input type="text" id="campoUsuario" placeholder="Usuário"><br><br>
+        <input type="password" id="campoSenha" placeholder="Senha"><br><br>
+        <button id="btn-entrar">Entrar</button>
+    </section>
+
+    <main id="sistema" style="display: none;">
+        <button id="toggle-menu">☰ Menu</button>
+
+        <div id="menu-nav">
+            <button data-screen="boas-vindas">Início</button>
+            <button data-screen="cadastro">Cadastro</button>
+            <button data-screen="estoque">Gestão</button>
+        </div>
+
+        <section id="tela-boas-vindas" style="display: none; text-align: center; margin-top: 80px;">
+            <h2 id="mensagem-boas-vindas">Bem-vindo(a) ao Sistema!</h2>
+            <p style="color: #555;">Utilize o menu lateral para navegar entre o Cadastro e a Gestão de Estoque.</p>
+        </section>
+
+        <section id="tela-cadastro" style="display: none;">
+            <h2>Cadastro de Plantio</h2>
+            <form id="form-cadastro">
+                <div class="input-group">
+                    <label for="nome">Setor do Plantio</label>
+                    <input type="text" id="nome" placeholder="Ex: Setor II">
+                </div>
+
+                <div class="input-group">
+                    <label for="categoria">Categoria:</label>
+                    <select id="categoria">
+                        <option value="Alface">Alface</option>
+                        <option value="Tomate">Tomates</option>
+                        <option value="Milho">Milho</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="area">Área do Canteiro m²</label>
+                    <input type="number" id="area" placeholder="Ex: 2.5" step="0.01">
+                </div>
+
+                <div class="input-group">
+                    <label for="plantada">Data do Plantio:</label>
+                    <input type="date" id="plantada">
+                </div>
+
+                <button type="submit">Salvar canteiro</button>
+            </form>
+        </section>
+
+        <section id="tela-estoque" style="display: none;">
+            <h2>Gestão de Estoque</h2>
+            <div id="lista-produtos"></div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

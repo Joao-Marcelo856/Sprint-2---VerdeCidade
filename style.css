@@ -1,0 +1,190 @@
+body {
+    font-family: arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: rgb(223, 217, 217);
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.imput-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.card-produto {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Sidebar Navigation */
+#menu-nav {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #333;
+    padding-top: 60px;
+    transition: left 0.3s;
+    z-index: 999;
+}
+
+#menu-nav.show {
+    left: 0;
+}
+
+#menu-nav button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 0;
+    background-color: #444;
+    border: none;
+    border-radius: 0;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#menu-nav button:hover {
+    background-color: #555;
+}
+
+#toggle-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background-color: #007bff;
+    padding: 10px 15px;
+}
+
+#toggle-menu:hover {
+    background-color: #0056b3;
+}
+
+nav {
+    display: none;
+}
+
+
+#lista-produtos table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#lista-produtos th,
+#lista-produtos td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#lista-produtos th {
+    background-color: #f2f2f2;
+}
+
+#lista-produtos .low-stock {
+    color: red;
+    font-weight: bold;
+}
+
+.tabela-estoque {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabela-estoque th,
+.tabela-estoque td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.tabela-estoque th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+}
+
+.tabela-estoque tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabela-estoque tr:hover {
+    background-color: #f1f1f1;
+}
+
+.low-stock {
+    color: #dc3545 !important;
+    font-weight: bold !important;
+}
