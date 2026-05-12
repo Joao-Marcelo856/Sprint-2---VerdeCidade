@@ -66,19 +66,20 @@ function handleCadastro(event) {
   if (!validarCampos({ nome, categoria, area, plantada })) return;
 
   const insumos = calcularInsumos(area, categoria);
-  const colheita = estimarColheita(plantada, categoria);
+  const colheitaPrevista = estimarColheita(plantada, categoria);
 
   const novoCanteiro = {
     nome,
     categoria,
     area,
     plantada,
-    colheita,
+    colheita: colheitaPrevista,
     sementes: insumos.sementes,
     densidade: insumos.densidade,
   };
 
   canteiros.push(novoCanteiro);
+  alert("Canteiro salvo com sucesso!");
 
   document.getElementById("form-cadastro").reset();
   mostrarTela("estoque");
@@ -106,16 +107,11 @@ function validarCampos({ nome, categoria, area, plantada }) {
 }
 
 function calcularInsumos(area, categoria) {
-  const taxas = {
-    Alface: 50,
-    Tomate: 15,
-    Milho: 12,
-    Outros: 20,
-  };
-
+  const taxas = { Alface: 50, Tomate: 15, Milho: 12, Outros: 20 };
   const taxa = taxas[categoria] ?? taxas.Outros;
-  const sementes = math.round(math.multiply(area, taxa));
-  const densidade = math.round(math.divide(sementes, area), 2);
+
+  const sementes = Math.round(area * taxa);
+  const densidade = parseFloat((sementes / area).toFixed(2)); 
 
   return { sementes, densidade };
 }
@@ -130,7 +126,7 @@ function estimarColheita(dataPlantio, categoria) {
 
   const dias = ciclos[categoria] ?? ciclos.Outros;
   const data = new Date(dataPlantio);
-  const totalDias = math.add(0, dias);
+  const totalDias = Math.floor(Math.random() * dias);
 
   data.setDate(data.getDate() + totalDias);
   return data.toLocaleDateString("pt-BR");
@@ -148,8 +144,8 @@ function renderizarEstoque() {
   lista.innerHTML = `
     <div class="grid-cartoes">
       ${canteiros
-        .map(
-          (p) => `
+      .map(
+        (p) => `
         <div class="card-canteiro">
           <h3>${p.nome}</h3>
           <p><strong>Categoria:</strong> ${p.categoria}</p>
@@ -160,8 +156,8 @@ function renderizarEstoque() {
           <p><strong>Densidade:</strong> ${p.densidade} semente/m²</p>
         </div>
       `,
-        )
-        .join("")}
+      )
+      .join("")}
     </div>
   `;
 }
