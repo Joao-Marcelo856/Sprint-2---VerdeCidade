@@ -111,7 +111,7 @@ function calcularInsumos(area, categoria) {
   const taxa = taxas[categoria] ?? taxas.Outros;
 
   const sementes = Math.round(area * taxa);
-  const densidade = parseFloat((sementes / area).toFixed(2)); 
+  const densidade = parseFloat((sementes / area).toFixed(2));
 
   return { sementes, densidade };
 }
@@ -124,11 +124,14 @@ function estimarColheita(dataPlantio, categoria) {
     Outros: 60,
   };
 
-  const dias = ciclos[categoria] ?? ciclos.Outros;
-  const data = new Date(dataPlantio);
-  const totalDias = Math.floor(Math.random() * dias);
+  const diasParaColher = ciclos[categoria] ?? ciclos.Outros;
 
-  data.setDate(data.getDate() + totalDias);
+
+  const data = new Date(dataPlantio + 'T00:00:00');
+
+
+  data.setDate(data.getDate() + diasParaColher);
+
   return data.toLocaleDateString("pt-BR");
 }
 
@@ -136,28 +139,34 @@ function renderizarEstoque() {
   const lista = document.querySelector("#lista-produtos");
 
   if (canteiros.length === 0) {
-    lista.innerHTML =
-      "<p style='text-align: center; color: #555;'>Nenhum canteiro cadastrado no momento.</p>";
+    lista.innerHTML = `
+      <div style="text-align: center; margin-top: 50px; color: #666;">
+        <p>🚜 <strong>O estoque está vazio.</strong></p>
+        <p>Cadastre novos canteiros na tela de cadastro.</p>
+      </div>`;
     return;
   }
 
+  // Ordenar: Colheita mais próxima primeiro
+  const canteirosOrdenados = [...canteiros].sort((a, b) => {
+    const dataA = a.colheita.split('/').reverse().join('');
+    const dataB = b.colheita.split('/').reverse().join('');
+    return dataA.localeCompare(dataB);
+  });
+
   lista.innerHTML = `
     <div class="grid-cartoes">
-      ${canteiros
-      .map(
-        (p) => `
+      ${canteirosOrdenados.map((p) => `
         <div class="card-canteiro">
           <h3>${p.nome}</h3>
-          <p><strong>Categoria:</strong> ${p.categoria}</p>
-          <p><strong>Área:</strong> ${p.area.toFixed(2)} m²</p>
-          <p><strong>Plantio:</strong> ${new Date(p.plantada).toLocaleDateString("pt-BR")}</p>
-          <p><strong>Colheita prevista:</strong> ${p.colheita}</p>
-          <p><strong>Sementes necessárias:</strong> ${p.sementes}</p>
-          <p><strong>Densidade:</strong> ${p.densidade} semente/m²</p>
+          <p><strong>🌱 Categoria:</strong> ${p.categoria}</p>
+          <p><strong>📏 Área:</strong> ${p.area.toFixed(2)} m²</p>
+          <p><strong>📅 Plantio:</strong> ${new Date(p.plantada + 'T00:00:00').toLocaleDateString("pt-BR")}</p>
+          <p><strong>🚜 Colheita Prevista:</strong> <span style="color: #e67e22; font-weight: bold;">${p.colheita}</span></p>
+          <p><strong>📦 Sementes:</strong> ${p.sementes} un.</p>
+          <p><strong>📊 Densidade:</strong> ${p.densidade} sem./m²</p>
         </div>
-      `,
-      )
-      .join("")}
+      `).join("")}
     </div>
   `;
 }
